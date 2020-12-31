@@ -51,6 +51,9 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <encoding>UTF-8</encoding>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
                     <generatedSourcesDirectory>
                         ${project.build.directory}/generated-sources/
                     </generatedSourcesDirectory>

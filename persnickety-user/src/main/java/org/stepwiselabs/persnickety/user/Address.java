@@ -5,12 +5,12 @@ import org.stepwiselabs.persnickety.annotation.*;
 @DBTable("address")
 public interface Address {
 
-    @DBField("id")
+    @DBColumn("id")
     @PrimaryKey()
     @AutoIncrement()
     Long getId();
 
-    @DBField("value")
+    @DBColumn("value")
     @NotNull()
     String getValue();
 

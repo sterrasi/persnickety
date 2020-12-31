@@ -6,16 +6,16 @@ import org.stepwiselabs.persnickety.annotation.*;
 @DBTable("users")
 public interface UsersTable {
 
-    @DBField("id")
+    @DBColumn("id")
     @AutoIncrement()
     @PrimaryKey()
     Long getId();
 
-    @DBField("user-name")
+    @DBColumn("user-name")
     @NotNull()
     String getName();
 
-    @DBField("address")
+    @DBColumn("address")
     @NotNull()
     Address getAddress();
 }
