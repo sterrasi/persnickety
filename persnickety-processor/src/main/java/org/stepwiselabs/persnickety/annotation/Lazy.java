@@ -5,9 +5,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Target(ElementType.TYPE)
+/**
+ * Marks the foreign key as 'lazy' so when the host table loads it will not fetch the foreign model.
+ */
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.SOURCE)
-public @interface DBTable {
+public @interface Lazy {
 
-    String value();
 }

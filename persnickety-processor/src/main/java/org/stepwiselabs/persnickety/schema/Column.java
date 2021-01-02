@@ -8,7 +8,7 @@ import static org.stepwiselabs.flair.Preconditions.checkNotNull;
 public class Column<M> {
 
     private final String name;
-    private final DBColumnType type;
+    private final ColumnType type;
     private final boolean updatable;
     private final boolean insertable;
     private final boolean primaryKey;
@@ -27,7 +27,7 @@ public class Column<M> {
         this.omitColumnIfNull = builder.omitColumnIfNull;
     }
 
-    public DBColumnType getType() {
+    public ColumnType getType() {
         return type;
     }
 
@@ -64,7 +64,7 @@ public class Column<M> {
 
     public class Builder {
         private final String name;
-        private DBColumnType type;
+        private ColumnType type;
         private boolean updatable;
         private boolean insertable;
         private boolean primaryKey;
@@ -76,7 +76,7 @@ public class Column<M> {
             this.name = name;
         }
 
-        public Builder setType(DBColumnType type) {
+        public Builder setType(ColumnType type) {
             this.type = type;
             return this;
         }

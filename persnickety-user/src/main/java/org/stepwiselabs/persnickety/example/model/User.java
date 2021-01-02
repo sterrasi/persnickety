@@ -1,21 +1,21 @@
-package org.stepwiselabs.persnickety.user;
+package org.stepwiselabs.persnickety.example.model;
 
 
 import org.stepwiselabs.persnickety.annotation.*;
 
-@DBTable("users")
-public interface UsersTable {
+public interface User {
 
-    @DBColumn("id")
+    @Column("id")
     @AutoIncrement()
     @PrimaryKey()
     Long getId();
 
-    @DBColumn("user-name")
+    @Column("user-name")
     @NotNull()
     String getName();
 
-    @DBColumn("address")
+    @Column("address-id")
     @NotNull()
+    @Lazy
     Address getAddress();
 }

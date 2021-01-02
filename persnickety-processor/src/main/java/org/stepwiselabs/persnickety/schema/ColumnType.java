@@ -15,7 +15,7 @@ import java.util.TimeZone;
 import static org.stepwiselabs.flair.Preconditions.checkNotBlank;
 
 
-public abstract class DBColumnType {
+public abstract class ColumnType {
 
     public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.RFC_1123_DATE_TIME
             .withZone(ZoneId.systemDefault());
@@ -33,11 +33,11 @@ public abstract class DBColumnType {
     /**
      * Enum Type
      */
-    public static class EnumDBColumnType extends DBColumnType {
+    public static class EnumColumnType extends ColumnType {
 
         private final String customType;
 
-        public EnumDBColumnType(String customType) {
+        public EnumColumnType(String customType) {
             checkNotBlank(customType, "custom enum type");
             this.customType = customType;
         }
@@ -74,7 +74,7 @@ public abstract class DBColumnType {
     /**
      * String Type
      */
-    public static class StringDBColumnType extends DBColumnType {
+    public static class StringColumnType extends ColumnType {
 
         @Override
         public String getName() {
@@ -104,7 +104,7 @@ public abstract class DBColumnType {
     /**
      * Integer Type
      */
-    public static class IntegerDBColumnType extends DBColumnType {
+    public static class IntegerColumnType extends ColumnType {
 
         @Override
         public String getName() {
@@ -134,7 +134,7 @@ public abstract class DBColumnType {
     /**
      * Long Type
      */
-    public static class LongDBColumnType extends DBColumnType {
+    public static class LongColumnType extends ColumnType {
 
         @Override
         public String getName() {
@@ -164,7 +164,7 @@ public abstract class DBColumnType {
     /**
      * Boolean Type
      */
-    public static class BooleanDBColumnType extends DBColumnType {
+    public static class BooleanColumnType extends ColumnType {
 
         @Override
         public String getName() {
@@ -194,7 +194,7 @@ public abstract class DBColumnType {
     /**
      * Timestamp Type
      */
-    public static class TimestampDBColumnType extends DBColumnType {
+    public static class TimestampColumnType extends ColumnType {
 
         private static TimeZone UTC = TimeZone.getTimeZone("UTC");
 
@@ -228,7 +228,7 @@ public abstract class DBColumnType {
     /**
      * Integer Array Type
      */
-    public static class IntArrayDBColumnType extends DBColumnType {
+    public static class IntArrayColumnType extends ColumnType {
 
         @Override
         public String getName() {
@@ -265,7 +265,7 @@ public abstract class DBColumnType {
     /**
      * String Array Type
      */
-    public static class StringArrayDBColumnType extends DBColumnType {
+    public static class StringArrayColumnType extends ColumnType {
 
         @Override
         public String getName() {
