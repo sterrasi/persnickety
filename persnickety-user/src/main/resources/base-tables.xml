@@ -1,0 +1,70 @@
+<!--
+   - The models will be used to autogenerate DTOs queries will result in immutable Objects. Editable objects will be
+   -  returned from the DAO by passing the corresponding immutable object, or identifier info.
+   -
+   -  Models have different representations
+   -    -update: fetches an existing model's data and returns a pojo with updatable fields and dirty tracking
+   -                has methods: isDirty
+   -                             getDirtyMethods (called internally for the update)
+   -    - columns with the 'immutable' constraint will only have a getter on the update version of the model
+   -
+   -
+   -->
+<ddl schema="stepwise-labs">
+
+    <import>base-models.xml</import>
+
+
+    <table name="onboarding_users" extends="entity">
+
+        <columns>
+            <column name="userid" type="string">
+                <constraints>
+                    <alpha>-_</alpha> <!-- allow alphanumeric with the '-' and '_' characters -->
+                    <not-null/>
+                    <unique/>
+                </constraints>
+            </column>
+
+            <column name="address_id" type="long">
+
+                <foreign-key table="addresses.id" lazy="true" model="short_address">
+                    <cascade on-delete="true"/>
+                </foreign-key>
+
+                <constraints>
+                    <not-null/>
+                </constraints>
+            </column>
+        </columns>
+
+        <!--
+            There can be multiple models defined.
+            Only one can be the default (default="true")
+            A default model is referenced by mixins by the "model" return type
+            Models can override the "model" return type on a table-mixin query with the use-for-query element
+            The name field is used for the generated Java Class name
+
+            Models can chose to either explicitly include or exclude columns.
+            If a Model does neither then all the columns that make up it's parent table are considered.
+
+        -->
+        <models>
+            <model default="true" name="OnboardingUser">
+                <exclude-columns>
+                    <column-ref>id</column-ref>
+                </exclude-columns>
+            </model>
+
+            <model name="UserIdentity">
+                <include-columns>
+                    <column-ref>id</column-ref>
+                    <column-ref>uid</column-ref>
+                </include-columns>
+            </model>
+        </models>
+
+    </table>
+
+
+</ddl>

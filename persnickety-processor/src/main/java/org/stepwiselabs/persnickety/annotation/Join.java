@@ -18,6 +18,6 @@ import java.lang.annotation.Target;
 public @interface Join {
 
     String target();
-    String constraint() default ""; // optional;
+    String constraint() default ""; // optional
     String keyColumn() default ""; // optional
 }

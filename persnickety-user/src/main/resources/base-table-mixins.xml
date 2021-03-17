@@ -1,0 +1,175 @@
+<!--
+   - Define the following table mixins:
+   -    entity: an identifiable object that can be sorted on either 'created_on' and 'last_updated_on' date
+   -    named: a record with a uniquely indexed 'name' record.
+   -
+   -->
+
+<ddl schema="source-tools">
+
+    <import>base-columns.xml</import>
+
+    <table-mixins>
+
+        <!--
+           - mixin: entity
+           -->
+        <table-mixin name="entity">
+            <column-ref primary-key="true">id</column-ref>
+            <column-ref>created_on</column-ref>
+            <column-ref>last_updated_on</column-ref>
+
+            <idexes>
+                <index name="id_created_on">id,created_on DESC</index>
+                <index name="id_last_updated_on">id,last_updated_on DESC</index>
+            </idexes>
+
+            <queries>
+
+                <!--
+                   - query: getById(String id)
+                  -->
+                <query name="getById" required="true" return="model">
+                    <param name="id" type="string" preconditions="not-blank"/>
+
+                    <sql>SELECT ${parent.model}
+                        FROM ${parent.table}
+                        WHERE id=${params.id}
+                    </sql>
+                </query>
+
+                <!--
+                   - query: getMostRecent(String id)
+                  -->
+                <!-- include-explicitly - the query will be included in the parent only if explicitly specified
+                   - return types: model, page:(type), list:(type), set:(type)
+                  -->
+                <query name="getMostRecent" required="true" return="page:model" include-explicitly="true">
+                    <param name="pageNum" type="long"/>
+
+                    <!-- configuration for pagination
+                         page-param - name of the param that should be used as the page number
+                         size-param - name of the param that should be used as the page size number
+                         page - static page number to use every time
+                         size - static page size to use every time
+
+                         the inclusion of the pagination element allows it to extend the sql statement by adding
+                         a LIMIT and OFFSET constraint.
+                      -->
+                    <pagination page-param="pageNum" size="20"/>
+
+                    <sql>SELECT ${parent.model}
+                        FROM ${parent.table}
+                        ORDER BY last_updated_on
+                    </sql>
+                </query>
+            </queries>
+        </table-mixin>
+
+        <!--
+           - mixin: named
+           -->
+        <table-mixin name="named">
+            <column-ref>name</column-ref>
+
+            <queries>
+
+                <!-- returns an Optional(model)
+                     when extended, the model can be set in the extended definition
+                  -->
+                <query name="getByName" return="model">
+                    <param name="name" type="string" preconditions="not-blank"/>
+
+                    <!-- bracketed parameters are added tp prepared statements -->
+                    <sql>SELECT ${parent.model}
+                        FROM ${parent.table}
+                        WHERE name=[params.name]
+                    </sql>
+                </query>
+
+                <query name="getRequiredByName" extends="getByName" required="true"/>
+
+            </queries>
+
+        </table-mixin>
+
+        <!--
+           - mixin: versioned
+           -->
+        <table-mixin name="versioned">
+            <column-ref primary-key="true">id</column-ref>
+            <column-ref>name</column-ref>
+            <column-ref>created_on</column-ref>
+            <column-ref dynamic-prefix="true">entity_id</column-ref>
+            <column-ref>version</column-ref>
+            <column-ref>current_version</column-ref>
+
+            <idexes>
+                <index name="entity_id_version">entity_id,version DESC</index>
+                <index name="name">name DESC</index>
+            </idexes>
+
+            <queries>
+
+                <!-- returns an Optional(model) with the specified name where the version
+                     is current
+                  -->
+                <query name="getCurrentVersionByName" return="model">
+                    <param name="name" type="string" preconditions="not-blank"/>
+
+                    <!-- bracketed parameters are added tp prepared statements -->
+                    <sql>SELECT ${parent.model}
+                        FROM ${parent.table}
+                        WHERE name=[params.name] AND current_version=version
+                    </sql>
+                </query>
+                <query name="getRequiredCurrentVersionByName" extends="getCurrentVersionByName" required="true"/>
+
+
+                <!-- returns an Optional(model) with the specified entity ID where the version
+                     is current
+                  -->
+                <query name="getCurrentVersionByEntityId" return="model">
+                    <param name="entityId" type="string" preconditions="not-blank"/>
+
+                    <sql>SELECT ${parent.model}
+                        FROM ${parent.table}
+                        WHERE entity_id=[params.entityId] AND current_version=version
+                    </sql>
+                </query>
+                <query name="getRequiredCurrentVersionByEntityId" extends="getCurrentVersionByEntityId"
+                       required="true"/>
+
+
+                <!-- returns an Optional(model) with the given name and version -->
+                <query name="getVersionByName" return="model">
+                    <param name="name" type="string" preconditions="not-blank"/>
+                    <param name="version" type="long" preconditions="not-blank"/>
+
+                    <sql>SELECT ${parent.model}
+                        FROM ${parent.table}
+                        WHERE name=[params.name] AND version=[params.version]
+                    </sql>
+                </query>
+                <query name="getRequiredVersionByName" extends="getVersionByName" required="true"/>
+
+
+                <!-- returns an Optional(model) with the given entity ID and version -->
+                <query name="getVersionByEntityId" return="model">
+                    <param name="entityId" type="string" preconditions="not-blank"/>
+                    <param name="version" type="long" preconditions="not-blank"/>
+
+                    <sql>SELECT ${parent.model}
+                        FROM ${parent.table}
+                        WHERE entity_id=[params.entityId] AND version=[params.version]
+                    </sql>
+                </query>
+                <query name="getRequiredVersionByEntityId" extends="getVersionByEntityId" required="true"/>
+
+            </queries>
+
+        </table-mixin>
+
+    </table-mixins>
+
+</ddl>

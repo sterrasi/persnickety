@@ -1,0 +1,88 @@
+<ddl schema="source-tools">
+
+    <column-definitions>
+
+        <!-- An internal ID
+             - It is a server generated guid
+             - Used as foreign key values
+             - creates a well distributed b-tree index
+          -->
+        <column name="id" type="guid" autogenerate="true" >
+            <constraints>
+                <not-null/>
+                <immutable/>
+                <unique/> <!-- should this create a unique index? -->
+            </constraints>
+        </column>
+
+        <!-- last updated
+             - date of a mutable record
+          -->
+        <column name="last_updated_on" type="date-with-timezone" autogenerate="true" >
+            <constraints>
+                <not-null/>
+            </constraints>
+        </column>
+
+        <!-- immutable date-with-timezone depicting when the record was initially inserted.
+             ??should this be a timestamp instead of a date-with-timezone
+          -->
+        <column name="created_on" type="date-with-timezone" autogenerate="true" >
+            <constraints>
+                <immutable/>
+                <not-null/>
+            </constraints>
+        </column>
+
+
+        <!-- A user facing immutable identifier
+             - ability to have a dynamic(supplied at runtime) prefix (dynamic-prefix="true")
+          -->
+        <column name="entity_id" type="entityid" prefix="de">
+            <constraints>
+                <immutable/>
+                <not-null/>
+            </constraints>
+        </column>
+
+        <!-- a non-null user facing mutable name
+             - used for searching
+          -->
+        <column name="name" type="varchar" default-size="150">
+            <constraints>
+                <immutable/>
+                <not-null/>
+                <unique/>
+            </constraints>
+        </column>
+
+        <!-- mutable, nullable description of a record
+          -->
+        <column name="description" type="varchar" default-size="400">
+            <constraints>
+                <immutable/>
+                <not-null/>
+                <unique/>
+            </constraints>
+        </column>
+
+        <!-- version of a record -->
+        <column name="version" type="long">
+            <constraints>
+                <immutable/>
+                <not-null/>
+                <non-negative/>
+            </constraints>
+        </column>
+
+        <!-- tells the current version of a versioned entity -->
+        <column name="current_version" type="long">
+            <constraints>
+                <immutable/>
+                <not-null/>
+                <non-negative/>
+            </constraints>
+        </column>
+    </column-definitions>
+
+</ddl>
