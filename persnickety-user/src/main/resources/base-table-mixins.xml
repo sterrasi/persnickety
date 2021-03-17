@@ -5,7 +5,7 @@
    -
    -->
 
-<ddl schema="source-tools">
+<ddl schema="base">
 
     <import>base-columns.xml</import>
 

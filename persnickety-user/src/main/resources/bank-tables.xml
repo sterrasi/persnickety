@@ -10,12 +10,12 @@
    -
    -
    -->
-<ddl schema="stepwise-labs">
+<ddl schema="bank">
 
     <import>base-models.xml</import>
 
 
-    <table name="onboarding_users" extends="entity">
+    <table name="user" extends="entity">
 
         <columns>
             <column name="userid" type="string">
@@ -50,7 +50,7 @@
 
         -->
         <models>
-            <model default="true" name="OnboardingUser">
+            <model default="true" name="User">
                 <exclude-columns>
                     <column-ref>id</column-ref>
                 </exclude-columns>
