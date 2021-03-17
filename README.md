@@ -14,4 +14,5 @@ The _persnickety_ ORM strives to be
 - Uses straight SQL
 - Lightweight and extensible DAO pattern
 - All dependencies are in the form of optional plugins (persnickety-postgres, persnickety-jackson)
+
  
