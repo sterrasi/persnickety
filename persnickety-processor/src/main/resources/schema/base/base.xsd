@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:sl="http://www.stepwiselabs.com/schema/persnickety/1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:vc="http://www.w3.org/2001/XMLSchema-versioning"
+           targetNamespace="http://www.stepwiselabs.com/schema/persnickety/1.0"
+           elementFormDefault="qualified"
+           vc:minVersion="1.1">
+
+
+
+
+</xs:schema>

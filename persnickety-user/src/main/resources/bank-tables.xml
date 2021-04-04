@@ -20,7 +20,7 @@
         <columns>
             <column name="userid" type="string">
                 <constraints>
-                    <alpha>-_</alpha> <!-- allow alphanumeric with the '-' and '_' characters -->
+                    <alphanum>-_</alphanum> <!-- allow alphanumeric with the '-' and '_' characters -->
                     <not-null/>
                     <unique/>
                 </constraints>

@@ -13,6 +13,7 @@ public interface Issue {
     Long getId();
 
     @Column("entity-id")
+    // sequence is internal
     @EntityId(prefix = "DE", sequence = "issue-enitity-id-sequence")
     @NotNull
     @NaturalKey
