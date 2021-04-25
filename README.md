@@ -1,6 +1,6 @@
 # drawstrings
 
-A straightforward Object-Relational Mapping that relieves you of the following pain:
+A straightforward Object-Relational Mapping library that relieves you of the following pain:
 - overly complicated layers of abstraction
 - having to learn a query language that hides SQL.
 - 'magic' non-deterministic caching behavior
