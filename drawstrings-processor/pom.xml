@@ -4,12 +4,12 @@
 
     <parent>
         <groupId>org.stepwiselabs</groupId>
-        <artifactId>persnickety-parent</artifactId>
+        <artifactId>drawstring-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>persnickety-user</artifactId>
-    <name>persnickety-user</name>
+    <artifactId>drawstring-processor</artifactId>
+    <name>drawstring-processor</name>
     <version>1.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
@@ -29,20 +29,20 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-
     </dependencyManagement>
 
     <dependencies>
+
         <dependency>
             <groupId>org.stepwiselabs</groupId>
-            <artifactId>persnickety-processor</artifactId>
+            <artifactId>flair</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -51,17 +51,6 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                     <encoding>UTF-8</encoding>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
-                    <generatedSourcesDirectory>
-                        ${project.build.directory}/generated-sources/
-                    </generatedSourcesDirectory>
-                    <annotationProcessors>
-                        <annotationProcessor>
-                            org.stepwiselabs.persnickety.DBTableProcessor
-                        </annotationProcessor>
-                    </annotationProcessors>
                 </configuration>
             </plugin>
         </plugins>
