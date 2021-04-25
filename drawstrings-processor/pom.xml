@@ -4,12 +4,12 @@
 
     <parent>
         <groupId>org.stepwiselabs</groupId>
-        <artifactId>drawstring-parent</artifactId>
+        <artifactId>drawstrings-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>drawstring-processor</artifactId>
-    <name>drawstring-processor</name>
+    <artifactId>drawstrings-processor</artifactId>
+    <name>drawstrings-processor</name>
     <version>1.0-SNAPSHOT</version>
 
     <packaging>jar</packaging>
